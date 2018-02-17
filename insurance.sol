@@ -76,6 +76,9 @@ For this demo, we make a simplifying assumption that each third party can only a
 	*/
 	function grantAccessToLimit(uint policyNumber,address thirdPartyAddress) payable public returns (bool) {
 		require(thirdPartyAddress != address(0x0));
+		
+		// Only allow the policyholder to grant access to their policy
+		require(policies[policyNumber].policyHolder == msg.sender);
 
 		// Check the policy holder has a policy
 		require(policies[policyNumber].hasPolicy == true);
@@ -92,6 +95,9 @@ For this demo, we make a simplifying assumption that each third party can only a
 	function grantAccessToPremium(uint policyNumber, address thirdPartyAddress) payable public returns (bool) {
 		require(thirdPartyAddress != address(0x0));
 
+		// Only allow the policyholder to grant access to their policy
+		require(policies[policyNumber].policyHolder == msg.sender);
+		
 		// Check the policy holder has a policy
 		require(policies[policyNumber].hasPolicy == true);
 		
